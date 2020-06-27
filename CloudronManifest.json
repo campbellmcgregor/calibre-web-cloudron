@@ -1,0 +1,12 @@
+{
+  "id": "com.calibreweb.cloudron",
+  "version": "0.1.0",
+  "healthCheckPath": "/login",
+  "httpPort": 8083,
+  "addons": {
+    "localstorage": {},
+    "ldap": {},
+    "email": {}
+  },
+  "manifestVersion": 2
+}
