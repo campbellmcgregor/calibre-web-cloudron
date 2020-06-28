@@ -1,5 +1,6 @@
 {
   "id": "com.calibreweb.cloudron",
+  "title": "Calibre Web",
   "version": "0.1.0",
   "healthCheckPath": "/login",
   "httpPort": 8083,
@@ -8,5 +9,6 @@
     "ldap": {},
     "email": {}
   },
+  "icon": "file://icon.png",
   "manifestVersion": 2
 }
