@@ -1,7 +1,10 @@
-**Vault**
+LDAP and mail is supported but the interface uses a database to store settings, due to the process the app uses
+it is not possible to inject the correct settings for your Cloudron.
 
-Vault does not integrate with Cloudron's users. The vault is sealed and you will need the unlock keys.
-The keys are stored in the /app/data folder called _vault_init.txt_. You will need to download these
-and distribute them. The vault can only be initalised once.
+If you wish to setup the LDAP and Mail integrations, the text file in the /app/data folder will provide the required
+credentials to setup the features in the admin interface.
 
-You can access
+Username: admin
+Password: admin123
+
+Ensure you change the password on first login
