@@ -6,7 +6,7 @@ chown -R cloudron:cloudron /run /app/data
 
 exec /usr/bin/supervisord --configuration /etc/supervisor/supervisord.conf --nodaemon -i calibre-web
 
-exec cat <<-EOF > "/app/data/ldap_email_settings.txt"
+cat <<-EOF > "/app/data/ldap_email_settings.txt"
 
 CLOUDRON_MAIL_DOMAIN = ${CLOUDRON_MAIL_DOMAIN}
 CLOUDRON_MAIL_SMTP_PORT = ${CLOUDRON_MAIL_SMTP_PORT}
