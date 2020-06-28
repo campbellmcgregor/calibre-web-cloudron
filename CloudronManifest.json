@@ -7,7 +7,7 @@
   "addons": {
     "localstorage": {},
     "ldap": {},
-    "email": {}
+    "sendmail": {}
   },
   "icon": "file://icon.png",
   "manifestVersion": 2
