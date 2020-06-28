@@ -24,6 +24,8 @@ RUN \
 	libldap-2.4-2 \
 	libsasl2-2 \
     python3-dev \
+	ghostscript \ 
+	libgl1-mesa-glx \ 
 	unrar && \
  if [ -z ${CALIBREWEB_RELEASE+x} ]; then \
 	CALIBREWEB_RELEASE=$(curl -sX GET "https://api.github.com/repos/janeczku/calibre-web/releases/latest" \
@@ -50,8 +52,9 @@ pip3 install gevent && \
     | awk '/tag_name/{print $4;exit}' FS='[""]'); \
  fi && \
  curl -o \
- /usr/bin/kepubify -L \
+ /app/code/kepubify -L \
 	https://github.com/geek1011/kepubify/releases/download/${KEPUBIFY_RELEASE}/kepubify-linux-64bit && \
+	chmod +x /app/code/kepubify && \
  echo "**** cleanup ****" && \
  apt purge -y \
 	libldap2-dev \
@@ -68,7 +71,7 @@ RUN   wget -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup
       "import sys; \
        main=lambda:sys.stderr.write('Download failed\n'); \
        exec(sys.stdin.read()); \
-       main(install_dir='/opt', isolated=True, version='4.13.0')" 
+       main(install_dir='/app/code', isolated=True, version='4.13.0')" 
 
 # copy start script
 COPY start.sh /app/pkg
@@ -83,6 +86,11 @@ RUN mkdir -p /app/data/Library/
 COPY Library/* /app/data/Library/
 COPY app.db /app/data
 
+# set the ImageMagik policy to allow PDF reads to extract images etc.
+# https://github.com/janeczku/calibre-web/issues/827
+COPY policy.xml /etc/ImageMagick-6/
+
+
 # organise some permissions and make some stuff executable
 RUN echo "Setting permissions this make take some time"
 RUN chown -R cloudron:cloudron /app/code /app/pkg /app/data
@@ -93,6 +101,10 @@ WORKDIR /app/data
 
 # todo 
 # tidy up files from install
+RUN  rm -fr \
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # kicking off the start script
 CMD [ "/app/pkg/start.sh" ]
